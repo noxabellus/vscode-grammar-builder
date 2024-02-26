@@ -39,7 +39,7 @@ interface Args {
     log.ok(`Building ${name} from ${relPath} to ${outPath}...`);
 
     try {
-        const file = Path.resolve(absPath, 'index.ts');
+        const file = Path.resolve(absPath, 'index.js');
 
         // hack to get error messages from tsc if there is a problem in the file
         await new Promise<void> ((resolve, reject) => {
