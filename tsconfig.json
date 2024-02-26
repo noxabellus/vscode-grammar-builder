@@ -11,6 +11,5 @@
 	},
     "ts-node": {
         "esm": true
-    },
-    "include": ["bin/**/*.ts"]
+    }
 }
