@@ -1,6 +1,6 @@
 # VS Code grammar builder
 
-see `vscode-grammar-builder-bootstrap` for a template
+see [`vscode-grammar-builder-bootstrap`](https://github.com/noxabellus/vscode-grammar-builder-bootstrap) for a template
 
 ## Usage
 
