@@ -8,14 +8,13 @@ import { processIndex, processRepo } from './processing.js';
 import { JsonGrammar, TMGrammarScope } from 'vscode-grammar';
 
 interface Args {
-    default: string;
+    "-default": string;
     out: string;
 }
 
 (async function () {
-    let { default: path, out }: Args = cli.args();
+    let { "-default": path, out }: Args = cli.args();
     if (!path) {
-        log.warn('TODO - print usage');
         cli.err('Expected path to a grammar JSON file');
     }
 
