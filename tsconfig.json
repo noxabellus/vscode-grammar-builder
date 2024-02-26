@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"sourceMap": true,
+		"strict": false,
+		"lib": ["ESNext"],
+		"typeRoots": ["node_modules/@types"],
+        "resolveJsonModule": true,
+	},
+    "ts-node": {
+        "esm": true
+    }
+}
