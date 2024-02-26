@@ -7,6 +7,12 @@ import { clean } from '../clean.js';
 import { processIndex, processRepo } from './processing.js';
 import { JsonGrammar, TMGrammarScope } from 'vscode-grammar';
 
+
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = Path.dirname(__filename);
+
 interface Args {
     "-default": string;
     out: string;
