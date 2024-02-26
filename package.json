@@ -14,7 +14,8 @@
     "type": "module",
     "bin": {
         "vscgb": "bin/vscgb.js",
-        "vscgd": "bin/vscgd.js"
+        "vscgd": "bin/vscgd.js",
+        "vscgi": "bin/vscgi.js"
     },
     "dependencies": {
         "@types/fs-extra": "^11.0.4",

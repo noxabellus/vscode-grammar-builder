@@ -29,14 +29,12 @@ export async function processIndex(
     let lines: string[] = [];
     let repoNames = repository ? Array.from(repository.keys()) : [];
 
-    let typesPath = Path.resolve(process.cwd(), './src/types');
-    let typesPathRel = Path.relative(outPath, typesPath).replace(/\\/g, '/');
-    lines.push(`import { TMGrammar } from '${typesPathRel}';\n`);
+    lines.push(`import { TMGrammar } from 'vscode-grammar';\n`);
 
     if (repoNames.length) {
         lines.push(`import {`);
         lines.push(...repoNames.map((name) => `${name},`));
-        lines.push(`} from './repository';\n`);
+        lines.push(`} from './repository/index.js';\n`);
     }
 
     lines.push(`const grammar: TMGrammar = {`);
@@ -114,8 +112,6 @@ export async function processRepo(
     });
 
     let repoPath = Path.resolve(outPath, 'repository');
-    let typesPath = Path.resolve(process.cwd(), './src/types');
-    let typesPathRel = Path.relative(repoPath, typesPath).replace(/\\/g, '/');
 
     let index: string = '';
     await fs.mkdir(repoPath);
@@ -124,14 +120,14 @@ export async function processRepo(
     for (let [name, scope] of repo) {
         let file = Path.resolve(repoPath, `${name}.ts`);
         let contents = await fmt.print([
-            `import { TMGrammarScope } from '${typesPathRel}';`,
+            `import { TMGrammarScope } from 'vscode-grammar';`,
             ``,
             `export const ${name}: TMGrammarScope = ${printScope(scope)}`,
             ``,
         ]);
 
         await fs.writeFile(file, contents);
-        index += `export * from './${name}'\n`;
+        index += `export * from './${name}.js'\n`;
     }
 
     index = await fmt.print(index);

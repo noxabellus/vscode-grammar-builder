@@ -59,7 +59,7 @@ interface Args {
 
     async function build(grammar: TMGrammar, outPath: string, name: string) {
         let processed = toJson(grammar);
-        let content = JSON.stringify(processed, null, '\t');
+        let content = JSON.stringify(processed, null, '    ');
         let filePath = Path.resolve(outPath, `${name}.tmLanguage.json`);
 
         await clean(outPath);
