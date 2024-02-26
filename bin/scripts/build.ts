@@ -9,10 +9,7 @@ import { clean } from './clean.js';
 import log from './log.js';
 import cli from './cli.js';
 
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = Path.dirname(__filename);
+import { __filename, __dirname } from './env.js';
 
 interface Args {
     "-default": string;
