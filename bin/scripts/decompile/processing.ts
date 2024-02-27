@@ -141,7 +141,6 @@ function processScope(scope: JsonGrammarScope): TMGrammarScope {
 
     // prettier-ignore
     Object.keys(scope).forEach((key) => {
-        log.ok(`Processing key '${key}'`);
         let value = scope[key];
 
         if (isRegexKey(key)) {
@@ -150,7 +149,6 @@ function processScope(scope: JsonGrammarScope): TMGrammarScope {
                 result[key] = new RegExp(value);
             } catch(err) {
                 log.err(`Failed to parse pattern: ${value}\n${err}`);
-                // result[key] = value;
             }
         }
         else if (isPatternsKey(key)) {
@@ -162,10 +160,7 @@ function processScope(scope: JsonGrammarScope): TMGrammarScope {
             let captures: TMGrammarCaptures = {};
             Object.keys(value).forEach((key) => {
                 let val = value[key];
-                log.warn(`pre: ${JSON.stringify(val)}`);
-                let processed = processScope(val);
-                log.warn(`post: ${JSON.stringify(processed)}`);
-                captures[parseInt(key)] = processed;
+                captures[parseInt(key)] = processScope(val);
             });
             result[key] = captures;
         }
@@ -174,7 +169,7 @@ function processScope(scope: JsonGrammarScope): TMGrammarScope {
             result[key] = value;
         }
         else {
-            log.warn(`WARNING: Unrecognized key '${key}'; discarding!`);
+            log.warn(`Unrecognized key '${key}'; discarding!`);
         }
     });
 
