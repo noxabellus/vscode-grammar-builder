@@ -141,15 +141,16 @@ function processScope(scope: JsonGrammarScope): TMGrammarScope {
 
     // prettier-ignore
     Object.keys(scope).forEach((key) => {
+        log.ok(`Processing key '${key}'`);
         let value = scope[key];
 
         if (isRegexKey(key)) {
             assertType<string>(value);
             try {
                 result[key] = new RegExp(value);
-            } catch(_) {
-                log.warn(`Failed to parse pattern: ${value}`);
-                result[key] = value;
+            } catch(err) {
+                log.err(`Failed to parse pattern: ${value}\n${err}`);
+                // result[key] = value;
             }
         }
         else if (isPatternsKey(key)) {
@@ -159,8 +160,12 @@ function processScope(scope: JsonGrammarScope): TMGrammarScope {
         else if (isCapturesKey(key)) {
             assertType<JsonGrammarCaptures>(value);
             let captures: TMGrammarCaptures = {};
-            Object.entries(value).forEach(([key, val]) => {
-                captures[parseInt(key)] = val;
+            Object.keys(value).forEach((key) => {
+                let val = value[key];
+                log.warn(`pre: ${JSON.stringify(val)}`);
+                let processed = processScope(val);
+                log.warn(`post: ${JSON.stringify(processed)}`);
+                captures[parseInt(key)] = processed;
             });
             result[key] = captures;
         }
@@ -220,9 +225,9 @@ function printCaptures(captures: TMGrammarCaptures): string {
 
     Object.keys(captures).forEach((key: any) => {
         key = parseInt(key);
-        let { name } = captures[parseInt(key)];
+        let caps = captures[parseInt(key)];
 
-        result.push(`${key}: { name: '${name}' },`);
+        result.push(`${key}: ${printScope(caps)},`);
     });
 
     result.push('}');

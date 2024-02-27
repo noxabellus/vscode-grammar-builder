@@ -28,7 +28,7 @@
         "rimraf": "^5.0.5",
         "ts-node": "^10.9.2",
         "typescript": "^5.3.3",
-        "vsce": "^1.81.1",
+        "@vscode/vsce": "^2.23.0",
         "vscode-oniguruma": "^2.0.1",
         "vscode-textmate": "^9.0.0"
     }
